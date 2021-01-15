@@ -1,0 +1,5 @@
+
+server:
+  port: 8082
+# 注册中心地址
+regist.center: localhost:8080/regist
