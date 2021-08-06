@@ -15,7 +15,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
 
 /**
- * 利用spring提供的到生命周期回调
+ * 利用spring提供的生命周期回调
  * 实现自定义注解属性注入
  *
  * @author yousj
