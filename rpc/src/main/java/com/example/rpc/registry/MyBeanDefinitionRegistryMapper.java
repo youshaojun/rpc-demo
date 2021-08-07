@@ -1,9 +1,6 @@
 package com.example.rpc.registry;
 
 import com.alibaba.fastjson.JSON;
-import com.example.rpc.registry.mapper.BaseMapper;
-import com.example.rpc.registry.mapper.TestMapper01;
-import com.example.rpc.registry.mapper.TestMapper02;
 import com.sun.istack.internal.NotNull;
 import org.reflections.Reflections;
 import org.springframework.beans.BeansException;
@@ -25,18 +22,19 @@ import java.lang.reflect.Proxy;
 import java.util.Set;
 
 /**
- * 利用FactoryBean接口实现bean动态注册BeanDefinition
- *
+ * 利用FactoryBean接口实现动态注册BeanDefinition
+ * <p>
  * Created by yousj on 2021/8/6 16:16
+ *
  * @author yousj
  */
 @Component
-public class MyBeanDefinitionRegistry implements BeanDefinitionRegistryPostProcessor, ResourceLoaderAware, ApplicationContextAware {
+public class MyBeanDefinitionRegistryMapper implements BeanDefinitionRegistryPostProcessor, ResourceLoaderAware, ApplicationContextAware {
 
     @Override
     public void postProcessBeanDefinitionRegistry(@NotNull BeanDefinitionRegistry registry) throws BeansException {
-        Reflections reflections = new Reflections("com.example.rpc.registry.mapper");
-        Set<Class<? extends BaseMapper>> beanClasses = reflections.getSubTypesOf(BaseMapper.class);
+        Reflections reflections = new Reflections("com.example.rpc.registry");
+        Set<Class<? extends TestBeanDefinitionRegistry.BaseMapper>> beanClasses = reflections.getSubTypesOf(TestBeanDefinitionRegistry.BaseMapper.class);
         for (Class<?> beanClass : beanClasses) {
             BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(beanClass);
             GenericBeanDefinition definition = (GenericBeanDefinition) builder.getRawBeanDefinition();
@@ -89,18 +87,7 @@ public class MyBeanDefinitionRegistry implements BeanDefinitionRegistryPostProce
         }
     }
 
-    @SuppressWarnings("NullableProblemsunqualified-field-access")
-    @Autowired
-    TestMapper01 testMapper01;
-    @Autowired
-    TestMapper02 testMapper02;
 
-    @PostConstruct
-    public void test(){
-        testMapper01.test01("1111");
-        testMapper02.test02("2222");
-        testMapper02.test03("3333");
-    }
 
 
 }
