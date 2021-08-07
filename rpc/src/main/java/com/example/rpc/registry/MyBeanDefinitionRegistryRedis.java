@@ -63,7 +63,7 @@ public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPost
                 GenericBeanDefinition definition = (GenericBeanDefinition) builder.getRawBeanDefinition();
                 definition.getConstructorArgumentValues().addGenericArgumentValue(redisStandaloneConfiguration.getValue());
                 definition.setBeanClass(MyRedisTemplateFactoryBean.class);
-                definition.setAutowireMode(GenericBeanDefinition.AUTOWIRE_BY_TYPE);
+                definition.setAutowireMode(GenericBeanDefinition.AUTOWIRE_BY_NAME);
                 registry.registerBeanDefinition(redisStandaloneConfiguration.getKey(), definition);
             }
         });
