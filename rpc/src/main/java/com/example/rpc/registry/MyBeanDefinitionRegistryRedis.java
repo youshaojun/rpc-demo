@@ -1,15 +1,10 @@
 package com.example.rpc.registry;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.example.rpc.registry.config.MyRedisStandaloneConfiguration;
 import com.example.rpc.registry.config.RedisTemplateConfig;
 import com.example.rpc.registry.factorybean.MyRedisTemplateFactoryBean;
 import com.sun.istack.internal.NotNull;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -19,11 +14,8 @@ import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Map;
 
 /**
