@@ -11,3 +11,22 @@ spring:
         dashboard: localhost:8080
   application:
     name: consumer
+
+# 多redisTemplate实例配置
+multi-redis:
+  redisTemplateConfigs:
+    redisNode0:
+      hostName: localhost
+      password: 123456
+      port: 6379
+      database: 0
+    redisNode1:
+      hostName: localhost
+      password: 123456
+      port: 6379
+      database: 1
+    redisNode2:
+      hostName: localhost
+      password: 123456
+      port: 6379
+      database: 2

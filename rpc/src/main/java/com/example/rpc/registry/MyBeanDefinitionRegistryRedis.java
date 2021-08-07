@@ -1,50 +1,47 @@
 package com.example.rpc.registry;
 
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.example.rpc.registry.config.MyRedisStandaloneConfiguration;
+import com.example.rpc.registry.config.RedisTemplateConfig;
+import com.example.rpc.registry.factorybean.MyRedisTemplateFactoryBean;
 import com.sun.istack.internal.NotNull;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.ResourceLoaderAware;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.boot.context.properties.bind.BindResult;
+import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 利用FactoryBean接口实现动态注册BeanDefinition
  * 注入自定义redisTemplate
- *
+ * <p>
  * <p>
  * Created by yousj on 2021/8/6 16:16
+ *
  * @author yousj
  */
-@Component
-public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPostProcessor, ResourceLoaderAware, ApplicationContextAware {
+public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPostProcessor, EnvironmentAware {
+
+    private Environment environment;
 
     @Override
     public void postProcessBeanDefinitionRegistry(@NotNull BeanDefinitionRegistry registry) throws BeansException {
-        for (int i = 0; i <= 15; i++) {
-            BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(RedisTemplate.class);
-            GenericBeanDefinition definition = (GenericBeanDefinition) builder.getRawBeanDefinition();
-            String beanName = "redisTemplate-" + i;
-            definition.getConstructorArgumentValues().addGenericArgumentValue(beanName);
-            definition.setBeanClass(MyRedisTemplateFactoryBean.class);
-            definition.setAutowireMode(GenericBeanDefinition.AUTOWIRE_BY_TYPE);
-            registry.registerBeanDefinition(beanName, definition);
-        }
+        registerBeanDefinition(registry);
     }
 
     @Override
@@ -53,40 +50,22 @@ public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPost
     }
 
     @Override
-    public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
-
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 
-    @Override
-    public void setResourceLoader(@NotNull ResourceLoader resourceLoader) {
-
+    private void registerBeanDefinition(BeanDefinitionRegistry registry) {
+        BindResult<RedisTemplateConfig> bindResult = Binder.get(environment).bind("multi-redis", RedisTemplateConfig.class);
+        bindResult.ifBound(redisTemplateConfigs -> {
+            Map<String, MyRedisStandaloneConfiguration> multiRedisTemplateConfigs = redisTemplateConfigs.getRedisTemplateConfigs();
+            for (Map.Entry<String, MyRedisStandaloneConfiguration> redisStandaloneConfiguration : multiRedisTemplateConfigs.entrySet()) {
+                BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(RedisTemplate.class);
+                GenericBeanDefinition definition = (GenericBeanDefinition) builder.getRawBeanDefinition();
+                definition.getConstructorArgumentValues().addGenericArgumentValue(redisStandaloneConfiguration.getValue());
+                definition.setBeanClass(MyRedisTemplateFactoryBean.class);
+                definition.setAutowireMode(GenericBeanDefinition.AUTOWIRE_BY_TYPE);
+                registry.registerBeanDefinition(redisStandaloneConfiguration.getKey(), definition);
+            }
+        });
     }
-
-
-    class MyRedisTemplateFactoryBean implements FactoryBean {
-
-        private String beanName;
-
-        public MyRedisTemplateFactoryBean(String beanName) {
-            this.beanName = beanName;
-        }
-
-        @Override
-        public Object getObject() {
-            RedisTemplate redisTemplate = new StringRedisTemplate();
-            RedisStandaloneConfiguration standaloneConfiguration = new RedisStandaloneConfiguration();
-            standaloneConfiguration.setPassword("123456");
-            standaloneConfiguration.setDatabase(Integer.valueOf(beanName.split("-")[1]));
-            RedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(standaloneConfiguration);
-            redisTemplate.setConnectionFactory(jedisConnectionFactory);
-            redisTemplate.afterPropertiesSet();
-            return redisTemplate;
-        }
-
-        @Override
-        public Class<?> getObjectType() {
-            return RedisTemplate.class;
-        }
-    }
-
 }
