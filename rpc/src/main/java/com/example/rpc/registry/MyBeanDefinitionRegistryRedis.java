@@ -33,7 +33,8 @@ public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPost
 
     @Override
     public void postProcessBeanDefinitionRegistry(@NotNull BeanDefinitionRegistry registry) throws BeansException {
-        registerBeanDefinition(registry);
+        BindResult<RedisTemplateConfig> bindResult = Binder.get(environment).bind("multi-redis", RedisTemplateConfig.class);
+        bindResult.ifBound(redisTemplateConfig -> registerBeanDefinition(redisTemplateConfig, registry));
     }
 
     @Override
@@ -46,18 +47,16 @@ public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPost
         this.environment = environment;
     }
 
-    private void registerBeanDefinition(BeanDefinitionRegistry registry) {
-        BindResult<RedisTemplateConfig> bindResult = Binder.get(environment).bind("multi-redis", RedisTemplateConfig.class);
-        bindResult.ifBound(redisTemplateConfigs -> {
-            Map<String, MyRedisStandaloneConfiguration> multiRedisTemplateConfigs = redisTemplateConfigs.getRedisTemplateConfigs();
-            for (Map.Entry<String, MyRedisStandaloneConfiguration> redisStandaloneConfiguration : multiRedisTemplateConfigs.entrySet()) {
-                BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(RedisTemplate.class);
-                GenericBeanDefinition definition = (GenericBeanDefinition) builder.getRawBeanDefinition();
-                definition.getConstructorArgumentValues().addGenericArgumentValue(redisStandaloneConfiguration.getValue());
-                definition.setBeanClass(MyRedisTemplateFactoryBean.class);
-                definition.setAutowireMode(GenericBeanDefinition.AUTOWIRE_BY_NAME);
-                registry.registerBeanDefinition(redisStandaloneConfiguration.getKey(), definition);
-            }
-        });
+    private void registerBeanDefinition(RedisTemplateConfig redisTemplateConfigs, BeanDefinitionRegistry registry) {
+        Map<String, MyRedisStandaloneConfiguration> multiRedisTemplateConfigs = redisTemplateConfigs.getRedisTemplateConfigs();
+        for (Map.Entry<String, MyRedisStandaloneConfiguration> redisStandaloneConfiguration : multiRedisTemplateConfigs.entrySet()) {
+            BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(RedisTemplate.class);
+            GenericBeanDefinition definition = (GenericBeanDefinition) builder.getRawBeanDefinition();
+            definition.getConstructorArgumentValues().addGenericArgumentValue(redisStandaloneConfiguration.getValue());
+            definition.setBeanClass(MyRedisTemplateFactoryBean.class);
+            definition.setAutowireMode(GenericBeanDefinition.AUTOWIRE_BY_NAME);
+            registry.registerBeanDefinition(redisStandaloneConfiguration.getKey(), definition);
+        }
     }
+
 }
