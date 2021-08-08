@@ -21,11 +21,11 @@ public class TestBeanDefinitionRegistry {
 
     //================================ 测试注入redisTemplate ======================
 
-    @Resource(name = "redisNode0")
+    @Resource
     private RedisTemplate redisTemplate0;
-    @Resource(name = "redisNode1")
+    @Resource
     private RedisTemplate redisTemplate1;
-    @Resource(name = "redisNode2")
+    @Resource
     private RedisTemplate redisTemplate2;
 
     @PostConstruct

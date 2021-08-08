@@ -15,17 +15,17 @@ spring:
 # 多redisTemplate实例配置
 multi-redis:
   redisTemplateConfigs:
-    redisNode0:
+    redisTemplate0:
       hostName: localhost
       password: 123456
       port: 6379
       database: 0
-    redisNode1:
+    redisTemplate1:
       hostName: localhost
       password: 123456
       port: 6379
       database: 1
-    redisNode2:
+    redisTemplate2:
       hostName: localhost
       password: 123456
       port: 6379
