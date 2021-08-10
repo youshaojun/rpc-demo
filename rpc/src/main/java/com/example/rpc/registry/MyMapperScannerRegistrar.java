@@ -26,8 +26,10 @@ public class MyMapperScannerRegistrar implements ImportBeanDefinitionRegistrar {
 
     private void doScan(BeanDefinitionRegistry registry, AnnotationMetadata importingClassMetadata) {
         AnnotationAttributes mapperScanAttrs = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(MapperScan.class.getName()));
-        Set<Class<? extends BaseMapper>> beanClasses = new Reflections(mapperScanAttrs.get("value")).getSubTypesOf(BaseMapper.class);
-        registerBeanDefinitions(registry, beanClasses);
+        if (mapperScanAttrs != null) {
+            Set<Class<? extends BaseMapper>> beanClasses = new Reflections(mapperScanAttrs.get("value")).getSubTypesOf(BaseMapper.class);
+            registerBeanDefinitions(registry, beanClasses);
+        }
     }
 
     private void registerBeanDefinitions(BeanDefinitionRegistry registry, Set<Class<? extends BaseMapper>> beanClasses) {
