@@ -3,7 +3,7 @@ package com.example.consumer.service;
 import com.example.rpc.registry.mapper.TestMapper01;
 import com.example.rpc.registry.mapper.TestMapper02;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -22,11 +22,12 @@ public class TestBeanDefinitionRegistry {
     //================================ 测试注入redisTemplate ======================
 
     @Resource
-    private RedisTemplate redisTemplate0;
+    private StringRedisTemplate redisTemplate0;
     @Resource
-    private RedisTemplate redisTemplate1;
+    private StringRedisTemplate redisTemplate1;
     @Resource
-    private RedisTemplate redisTemplate2;
+    private StringRedisTemplate redisTemplate2;
+
 
     @PostConstruct
     public void testRedisTemplate(){

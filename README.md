@@ -3,11 +3,13 @@
 #### 介绍
 
 1. 简易版的rpc 利用BeanPostProcessor实现自定义属注解性注入
+   http://localhost:8082/test/get?param=xiaoming
 
 2. BeanDefinition和FactoryBean
     利用BeanDefinitionRegistry实现动态注册BeanDefinition
     注册的BeanDefinition的beanClass为FactoryBean类型
     属性填充的是调用FactoryBean的getObject()方法获取的实例
+    参看 com.example.consumer.service.TestBeanDefinitionRegistry 测试验证
     
 
 #### 使用说明

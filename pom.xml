@@ -32,7 +32,7 @@
     </dependencies>
 
     <modules>
-        <module>regist-center</module>
+        <module>register-center</module>
         <module>api</module>
         <module>producer</module>
         <module>consumer</module>

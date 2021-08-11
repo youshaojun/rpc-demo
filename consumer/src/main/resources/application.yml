@@ -2,7 +2,7 @@
 server:
   port: 8082
 # 注册中心地址
-regist.center: localhost:8088/regist
+register.center: localhost:8088/regist
 
 spring:
   cloud:
@@ -11,8 +11,11 @@ spring:
         dashboard: localhost:8080
   application:
     name: consumer
+  # 默认自动注入的redis配置
+  redis:
+    password: 123456
 
-# 多redisTemplate实例配置
+# 多redisTemplate实例配置, 根据名称注入
 # 默认配置 hostName: localhost; password: none; port: 6379; database: 0
 multi-redis:
   redisTemplateConfigs:

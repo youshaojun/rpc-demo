@@ -1,4 +1,4 @@
-package com.example.registcenter.controller;
+package com.example.registercenter.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @RestController
 @RequestMapping("/regist")
-public class RegistController {
+public class RegisterController {
 
     private static ConcurrentHashMap<String,String> urlMappingMap = new ConcurrentHashMap<>();
 
