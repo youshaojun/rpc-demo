@@ -9,11 +9,11 @@
     利用BeanDefinitionRegistry实现动态注册BeanDefinition
     注册的BeanDefinition的beanClass为FactoryBean类型
     属性填充的是调用FactoryBean的getObject()方法获取的实例
-    参看 com.example.consumer.service.TestBeanDefinitionRegistry 测试验证
+   ### 参考 com.example.consumer.service.TestBeanDefinitionRegistry 测试验证
     
 
 #### 使用说明
-regist-center 注册中心
+register-center 注册中心
 api 接口
 producer 生产者
 consumer 消费者
