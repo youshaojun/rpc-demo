@@ -24,8 +24,8 @@ public class MyMapperFactoryBean<T> implements FactoryBean {
                 return method.invoke(this, args);
             }
             Object result = JSON.toJSONString(args);
-            System.out.println("方法[" + method.getName() + "]被调用, 参数[" + result + "]");
-            return args[0];
+            System.out.println("方法[" + method.getName() + "]被调用, 参数" + result);
+            return args;
         });
     }
 

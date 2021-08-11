@@ -20,7 +20,7 @@ import java.util.Set;
 public class MyMapperScannerRegistrar implements ImportBeanDefinitionRegistrar {
 
     @Override
-    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry, BeanNameGenerator importBeanNameGenerator) {
+    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
         doScan(registry, importingClassMetadata);
     }
 
