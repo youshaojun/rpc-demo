@@ -5,7 +5,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
  * @author yousj
@@ -21,7 +20,7 @@ public class MyRedisTemplateFactoryBean implements FactoryBean {
 
     @Override
     public Object getObject() {
-        RedisTemplate redisTemplate = new StringRedisTemplate();
+        RedisTemplate redisTemplate = new RedisTemplate();
         RedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(this.standaloneConfiguration);
         redisTemplate.setConnectionFactory(jedisConnectionFactory);
         redisTemplate.afterPropertiesSet();

@@ -1,7 +1,7 @@
 package com.example.rpc.registry;
 
 import com.example.rpc.registry.config.MyRedisStandaloneConfiguration;
-import com.example.rpc.registry.config.RedisTemplateConfig;
+import com.example.rpc.registry.config.RedisConfig;
 import com.example.rpc.registry.factorybean.MyRedisTemplateFactoryBean;
 import com.sun.istack.internal.NotNull;
 import org.springframework.beans.BeansException;
@@ -33,7 +33,7 @@ public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPost
 
     @Override
     public void postProcessBeanDefinitionRegistry(@NotNull BeanDefinitionRegistry registry) throws BeansException {
-        BindResult<RedisTemplateConfig> bindResult = Binder.get(environment).bind("multi-redis", RedisTemplateConfig.class);
+        BindResult<RedisConfig> bindResult = Binder.get(environment).bind("multi-redis", RedisConfig.class);
         bindResult.ifBound(redisTemplateConfig -> registerBeanDefinition(redisTemplateConfig, registry));
     }
 
@@ -47,8 +47,8 @@ public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPost
         this.environment = environment;
     }
 
-    private void registerBeanDefinition(RedisTemplateConfig redisTemplateConfigs, BeanDefinitionRegistry registry) {
-        Map<String, MyRedisStandaloneConfiguration> multiRedisTemplateConfigs = redisTemplateConfigs.getRedisTemplateConfigs();
+    private void registerBeanDefinition(RedisConfig redisTemplateConfigs, BeanDefinitionRegistry registry) {
+        Map<String, MyRedisStandaloneConfiguration> multiRedisTemplateConfigs = redisTemplateConfigs.getRedisConfigs();
         for (Map.Entry<String, MyRedisStandaloneConfiguration> redisStandaloneConfiguration : multiRedisTemplateConfigs.entrySet()) {
             BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(RedisTemplate.class);
             GenericBeanDefinition definition = (GenericBeanDefinition) builder.getRawBeanDefinition();
