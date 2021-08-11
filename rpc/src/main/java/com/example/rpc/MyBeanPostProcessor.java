@@ -28,6 +28,11 @@ public class MyBeanPostProcessor implements BeanPostProcessor, EnvironmentAware,
     private Environment environment;
 
     @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         Class<?> clazz = bean.getClass();
         // 注册服务
@@ -74,8 +79,4 @@ public class MyBeanPostProcessor implements BeanPostProcessor, EnvironmentAware,
         return Ordered.LOWEST_PRECEDENCE;
     }
 
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
 }

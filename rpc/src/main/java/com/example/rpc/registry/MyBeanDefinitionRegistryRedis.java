@@ -32,6 +32,11 @@ public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPost
     private Environment environment;
 
     @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    @Override
     public void postProcessBeanDefinitionRegistry(@NotNull BeanDefinitionRegistry registry) throws BeansException {
         BindResult<RedisConfig> bindResult = Binder.get(environment).bind("multi-redis", RedisConfig.class);
         bindResult.ifBound(redisTemplateConfig -> registerBeanDefinition(redisTemplateConfig, registry));
@@ -40,11 +45,6 @@ public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPost
     @Override
     public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
 
-    }
-
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
     }
 
     private void registerBeanDefinition(RedisConfig redisTemplateConfigs, BeanDefinitionRegistry registry) {
