@@ -1,5 +1,15 @@
 version: '2'
 services:
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    networks:
+      - net-redis
+    ports:
+      - 6379:6379
+    command: redis-server --port 6379 --requirepass 123456  --appendonly yes
+
   register-center:
     build:
       context: ./register-center
@@ -10,6 +20,8 @@ services:
       - 8088:8088
     container_name: register-center
     image: register-center
+    cap_add:
+      - ALL
 
   producer:
     build:
@@ -17,22 +29,22 @@ services:
     restart: always
     networks:
       - net-register-center
-      - net-producer
     ports:
       - 8081:8081
     container_name: producer
     image: producer
     depends_on:
       - register-center
-    links:
-      - register-center
-
+    cap_add:
+      - ALL
   consumer:
     build:
       context: ./consumer
     restart: always
     networks:
       - net-register-center
+      - net-redis
+      - net-producer
     ports:
       - 8082:8082
     container_name: consumer
@@ -41,13 +53,16 @@ services:
 #      - "/home/test/consumer:/home"
     depends_on:
       - register-center
+      - producer
       - redis
-    links:
-      - register-center
-      - net-producer
+    cap_add:
+      - ALL
+
 
 networks:
   net-register-center:
     driver: bridge
-  net-producer:
+  net-redis:
     driver: bridge
+  net-producer:
+      driver: bridge
