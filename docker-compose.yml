@@ -58,11 +58,10 @@ services:
     cap_add:
       - ALL
 
-
 networks:
-  net-register-center:
-    driver: bridge
   net-redis:
     driver: bridge
+  net-register-center:
+    driver: bridge
   net-producer:
-      driver: bridge
+    driver: bridge
