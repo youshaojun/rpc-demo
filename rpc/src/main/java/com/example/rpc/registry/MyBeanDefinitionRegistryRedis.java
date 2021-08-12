@@ -14,7 +14,6 @@ import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.lang.Nullable;
 
 import java.util.Map;
 
@@ -37,13 +36,13 @@ public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPost
     }
 
     @Override
-    public void postProcessBeanDefinitionRegistry(@Nullable BeanDefinitionRegistry registry) throws BeansException {
+    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
         BindResult<RedisConfig> bindResult = Binder.get(environment).bind("multi-redis", RedisConfig.class);
         bindResult.ifBound(redisTemplateConfig -> registerBeanDefinition(redisTemplateConfig, registry));
     }
 
     @Override
-    public void postProcessBeanFactory(@Nullable ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
 
     }
 
