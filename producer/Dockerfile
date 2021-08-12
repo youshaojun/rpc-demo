@@ -1,9 +1,9 @@
 FROM moxm/java:1.8-full
-LABEL maintainer="youshaojunde@163.com"
+MAINTAINER youshaojunde@163.com
 ENV TZ=Asia/Shanghai
-ENV JAVA_OPTS="-Xms128m -Xmx256m"
 WORKDIR /home/test
-ARG JAR_FILE=target/producer.jar
-COPY ${JAR_FILE} app.jar
+ARG VERSION=0.0.1
+ARG JAR_FILE=target/producer-${VERSION}.jar
+COPY ${JAR_FILE} producer-${VERSION}.jar
 EXPOSE 8081
-ENTRYPOINT sleep 60; java $JAVA_OPTS -jar app.jar &
+ENTRYPOINT  java -jar producer-${VERSION}.jar &

@@ -7,8 +7,9 @@
 		<groupId>com.example</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>regist-center</artifactId>
-	<name>regist-center</name>
+	<artifactId>register-center</artifactId>
+	<name>register-center</name>
+	<version>0.0.1</version>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

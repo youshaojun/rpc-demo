@@ -9,6 +9,7 @@
 	</parent>
 	<artifactId>consumer</artifactId>
 	<name>consumer</name>
+	<version>0.0.1</version>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

@@ -4,28 +4,50 @@ services:
     build:
       context: ./register-center
     restart: always
+    networks:
+      - net-register-center
     ports:
       - 8088:8088
     container_name: register-center
-    hostname: register-center-host
     image: register-center
 
   producer:
     build:
       context: ./producer
     restart: always
+    networks:
+      - net-register-center
+      - net-producer
     ports:
       - 8081:8081
     container_name: producer
-    hostname: producer-host
     image: producer
+    depends_on:
+      - register-center
+    links:
+      - register-center
 
   consumer:
     build:
       context: ./consumer
     restart: always
+    networks:
+      - net-register-center
     ports:
       - 8082:8082
     container_name: consumer
-    hostname: consumer-host
     image: consumer
+#    volumes:
+#      - "/home/test/consumer:/home"
+    depends_on:
+      - register-center
+      - redis
+    links:
+      - register-center
+      - net-producer
+
+networks:
+  net-register-center:
+    driver: bridge
+  net-producer:
+    driver: bridge

@@ -2,7 +2,7 @@
 server:
   port: 8082
 # 注册中心地址
-register.center: ${register-center-host}:8088/regist
+register.center: http://net-register-center:8088/register
 
 spring:
   cloud:

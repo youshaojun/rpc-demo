@@ -3,7 +3,6 @@ package com.example.rpc.registry;
 import com.example.rpc.registry.config.MyRedisStandaloneConfiguration;
 import com.example.rpc.registry.config.RedisConfig;
 import com.example.rpc.registry.factorybean.MyRedisTemplateFactoryBean;
-import com.sun.istack.internal.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -15,6 +14,7 @@ import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.Nullable;
 
 import java.util.Map;
 
@@ -37,13 +37,13 @@ public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPost
     }
 
     @Override
-    public void postProcessBeanDefinitionRegistry(@NotNull BeanDefinitionRegistry registry) throws BeansException {
+    public void postProcessBeanDefinitionRegistry(@Nullable BeanDefinitionRegistry registry) throws BeansException {
         BindResult<RedisConfig> bindResult = Binder.get(environment).bind("multi-redis", RedisConfig.class);
         bindResult.ifBound(redisTemplateConfig -> registerBeanDefinition(redisTemplateConfig, registry));
     }
 
     @Override
-    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@Nullable ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
 
     }
 

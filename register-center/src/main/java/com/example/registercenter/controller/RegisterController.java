@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 2021/1/14
  */
 @RestController
-@RequestMapping("/regist")
+@RequestMapping("/register")
 public class RegisterController {
 
     private static ConcurrentHashMap<String,String> urlMappingMap = new ConcurrentHashMap<>();
