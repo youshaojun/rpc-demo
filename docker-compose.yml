@@ -13,26 +13,27 @@ services:
   register-center:
     build:
       context: ./register-center
+    container_name: register-center
+    image: register-center
     restart: always
     networks:
       - net-register-center
     ports:
       - 8088:8088
-    container_name: register-center
-    image: register-center
     cap_add:
       - ALL
 
   producer:
     build:
       context: ./producer
+    container_name: producer
+    image: producer
     restart: always
     networks:
+      - net-producer
       - net-register-center
     ports:
       - 8081:8081
-    container_name: producer
-    image: producer
     depends_on:
       - register-center
     cap_add:
@@ -41,15 +42,15 @@ services:
   consumer:
     build:
       context: ./consumer
+    container_name: consumer
+    image: consumer
     restart: always
     networks:
-      - net-register-center
       - net-redis
+      - net-register-center
       - net-producer
     ports:
       - 8082:8082
-    container_name: consumer
-    image: consumer
 #    volumes:
 #      - "/home/test/consumer:/home"
     depends_on:
