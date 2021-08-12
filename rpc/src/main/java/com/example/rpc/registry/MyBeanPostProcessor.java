@@ -1,4 +1,4 @@
-package com.example.rpc;
+package com.example.rpc.registry;
 
 import cn.hutool.http.HttpUtil;
 import com.example.rpc.annotation.MyReference;

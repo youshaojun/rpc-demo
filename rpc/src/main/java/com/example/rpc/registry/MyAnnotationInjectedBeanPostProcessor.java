@@ -1,4 +1,4 @@
-package com.example.rpc;
+package com.example.rpc.registry;
 
 import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
