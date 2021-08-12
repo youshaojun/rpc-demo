@@ -16,6 +16,15 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
+		<rpc.version>0.0.1-SNAPSHOT</rpc.version>
+		<api.version>0.0.1-SNAPSHOT</api.version>
+		<spring-cloud.version>Finchley.SR1</spring-cloud.version>
+		<spring-cloud-alibaba.version>0.2.2.RELEASE</spring-cloud-alibaba.version>
+		<reflections.version>0.9.11</reflections.version>
+		<google.guava.version>21.0</google.guava.version>
+		<hutool.version>5.0.7</hutool.version>
+		<fastjson.version>1.2.76</fastjson.version>
+		<jedis.client.version>3.3.0</jedis.client.version>
         <java.version>1.8</java.version>
 		<maven.compiler.version>3.6.0</maven.compiler.version>
     </properties>

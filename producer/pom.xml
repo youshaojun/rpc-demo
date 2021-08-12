@@ -21,12 +21,12 @@
 		<dependency>
 			<groupId>com.example</groupId>
 			<artifactId>api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${api.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.example</groupId>
 			<artifactId>rpc</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${rpc.version}</version>
 		</dependency>
 
 	</dependencies>

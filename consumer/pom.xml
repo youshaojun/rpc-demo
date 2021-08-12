@@ -12,11 +12,6 @@
 	<version>0.0.1</version>
 	<description>Demo project for Spring Boot</description>
 
-	<properties>
-		<spring-cloud.version>Finchley.SR1</spring-cloud.version>
-		<spring-cloud-alibaba.version>0.2.2.RELEASE</spring-cloud-alibaba.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -31,13 +26,13 @@
 		<dependency>
 			<groupId>com.example</groupId>
 			<artifactId>api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${api.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.example</groupId>
 			<artifactId>rpc</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${rpc.version}</version>
 		</dependency>
 
 		<dependency>

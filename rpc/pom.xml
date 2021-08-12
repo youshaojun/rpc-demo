@@ -23,39 +23,40 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+		<dependency>
+			<groupId>com.example</groupId>
+			<artifactId>api</artifactId>
+			<version>${api.version}</version>
+		</dependency>
+
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
-            <version>0.9.11</version>
+            <version>${reflections.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>21.0</version>
+            <version>${google.guava.version}</version>
         </dependency>
 
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.0.7</version>
+            <version>${hutool.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.76</version>
+            <version>${fastjson.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>3.3.0</version>
+            <version>${jedis.client.version}</version>
         </dependency>
 
     </dependencies>
