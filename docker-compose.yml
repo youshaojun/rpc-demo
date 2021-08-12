@@ -2,7 +2,7 @@ version: '2'
 services:
   redis:
     container_name: redis
-    image: redis
+    image: redis:latest
     restart: always
     networks:
       - net-redis
@@ -37,6 +37,7 @@ services:
       - register-center
     cap_add:
       - ALL
+
   consumer:
     build:
       context: ./consumer
