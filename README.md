@@ -1,7 +1,8 @@
 # simple-rpc
 
 ##### 使用docker & docker-compose部署项目
-docker & docker-compose安装和使用请参考
+docker & docker-compose安装和使用请参考 
+[Docker version 20.10.8 & docker-compose version 1.8.1]
 https://www.docker.com/
 https://www.runoob.com/docker/docker-tutorial.html
 
