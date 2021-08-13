@@ -51,6 +51,7 @@ public class MyBeanPostProcessor implements BeanPostProcessor, EnvironmentAware,
                     String value = reference.value();
                     // 根据名称从注册中心获取映射关系
                     String rpcUrl = HttpUtil.get(environment.getProperty("register.center") + "/get?k=" + value);
+					System.out.println("=============>>>" + rpcUrl + "<<<==============");
                     // 使用JDK动态代理生成rpc代理类
                     Object proxyInstance = Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[]{field.getType()}, (proxy, method, args1) -> {
                         System.out.println("=============>>> rpc <<<=============");

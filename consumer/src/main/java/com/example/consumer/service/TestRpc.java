@@ -18,6 +18,7 @@ public class TestRpc {
 
     @RequestMapping("/get")
     public String get(String param) {
+		System.out.println("=============>>>consumer<<<==============");
         return commonApi.execute(param);
     }
 
