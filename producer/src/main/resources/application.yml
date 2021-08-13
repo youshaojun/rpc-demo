@@ -2,6 +2,6 @@
 server:
   port: 8081
 # 注册中心地址
-register.center: http://net-register-center:8088/register
+register.center: http://register-center:8088/register
 # 生产者提供的服务地址
-producer.url: http://net-producer:8081
+producer.url: http://producer:8081

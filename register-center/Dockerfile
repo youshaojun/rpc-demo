@@ -4,6 +4,6 @@ ENV TZ=Asia/Shanghai
 WORKDIR /home
 ARG VERSION=0.0.1
 ARG JAR_FILE=target/register-center-${VERSION}.jar
-COPY ${JAR_FILE} register-center-${VERSION}.jar
+COPY ${JAR_FILE} register-center.jar
 EXPOSE 8088
-ENTRYPOINT java -jar register-center-${VERSION}.jar &
+ENTRYPOINT ["java", "-jar", "register-center.jar"]

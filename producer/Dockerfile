@@ -4,6 +4,6 @@ ENV TZ=Asia/Shanghai
 WORKDIR /home
 ARG VERSION=0.0.1
 ARG JAR_FILE=target/producer-${VERSION}.jar
-COPY ${JAR_FILE} producer-${VERSION}.jar
+COPY ${JAR_FILE} producer.jar
 EXPOSE 8081
-ENTRYPOINT  java -jar producer-${VERSION}.jar &
+ENTRYPOINT ["java", "-jar", "producer.jar"]

@@ -2,7 +2,7 @@
 server:
   port: 8082
 # 注册中心地址
-register.center: http://net-register-center:8088/register
+register.center: http://register-center:8088/register
 
 spring:
   cloud:
@@ -14,23 +14,23 @@ spring:
   # 默认自动注入的redis配置
   redis:
     password: 123456
-    host: net-redis
+    host: redis
 # 多redisTemplate实例配置, 根据名称注入
 # 默认配置 hostName: localhost; password: none; port: 6379; database: 0
 multi-redis:
   redisConfigs:
     redisTemplate0:
-      hostName: net-redis
+      hostName: redis
       password: 123456
       port: 6379
       database: 0
     redisTemplate1:
-      hostName: net-redis
+      hostName: redis
       password: 123456
       port: 6379
       database: 1
     redisTemplate2:
-      hostName: net-redis
+      hostName: redis
       password: 123456
       port: 6379
       database: 2

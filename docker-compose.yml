@@ -51,8 +51,8 @@ services:
       - net-producer
     ports:
       - 8082:8082
-#    volumes:
-#      - "/home/test/consumer:/home"
+    volumes:
+      - "/data/logs:/data/logs"
     depends_on:
       - register-center
       - producer
