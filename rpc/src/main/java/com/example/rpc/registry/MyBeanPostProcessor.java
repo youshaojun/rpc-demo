@@ -3,6 +3,7 @@ package com.example.rpc.registry;
 import cn.hutool.http.HttpUtil;
 import com.example.rpc.annotation.MyReference;
 import com.example.rpc.annotation.MyService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.EnvironmentAware;
@@ -23,6 +24,7 @@ import java.lang.reflect.Proxy;
  * @since 2021/1/15
  */
 @Component
+@Slf4j
 public class MyBeanPostProcessor implements BeanPostProcessor, EnvironmentAware, PriorityOrdered {
 
     private Environment environment;
@@ -51,10 +53,10 @@ public class MyBeanPostProcessor implements BeanPostProcessor, EnvironmentAware,
                     String value = reference.value();
                     // 根据名称从注册中心获取映射关系
                     String rpcUrl = HttpUtil.get(environment.getProperty("register.center") + "/get?k=" + value);
-					System.out.println("=============>>>" + rpcUrl + "<<<==============");
+                    log.info("=============>>>> 从注册中心上获取url: {}",rpcUrl);
                     // 使用JDK动态代理生成rpc代理类
                     Object proxyInstance = Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[]{field.getType()}, (proxy, method, args1) -> {
-                        System.out.println("=============>>> rpc <<<=============");
+						log.info("=============>>>> 发起远程调用 <<<=============");
                         return HttpUtil.get(rpcUrl + "?param=" + args1[0]);
                     });
                     // 修改属性的权限值

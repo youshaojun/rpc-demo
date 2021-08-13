@@ -1,16 +1,13 @@
 # simple-rpc
 
-#### 介绍
+##### 使用docker & docker-compose部署项目
+docker & docker-compose安装和使用请参考
+https://www.docker.com/
+https://www.runoob.com/docker/docker-tutorial.html
 
-1. 简易版的rpc 利用BeanPostProcessor实现自定义属注解性注入
-   http://localhost:8082/test/get?param=xiaoming
-
-2. BeanDefinition和FactoryBean
-    利用BeanDefinitionRegistry实现动态注册BeanDefinition
-    注册的BeanDefinition的beanClass为FactoryBean类型
-    属性填充的是调用FactoryBean的getObject()方法获取的实例
-   ### 参考 com.example.consumer.service.TestBeanDefinitionRegistry 测试验证
-    
+#### 启动服务
+1. 启动 docker-compose up -d 
+2. 访问consumer服务  http://ip:8082/test/get?param=xiaoming
 
 #### 使用说明
 register-center 注册中心
@@ -18,6 +15,23 @@ api 接口
 producer 生产者
 consumer 消费者
 rpc 远程调用实现
+
+#### 相关代码说明
+
+1. 
+    com.example.rpc.registry.MyBeanPostProcessor
+    简易版的rpc 利用BeanPostProcessor实现自定义属注解性注入
+    参考 com.example.consumer.service.TestRpc 测试验证
+  
+2. 
+    com.example.rpc.registry.MyBeanDefinitionRegistryRedis
+    com.example.rpc.registry.MyMapperScannerRegistrar
+    BeanDefinition和FactoryBean
+    利用BeanDefinitionRegistry实现动态注册BeanDefinition
+    注册的BeanDefinition的beanClass为FactoryBean类型
+    属性填充的是调用FactoryBean的getObject()方法获取的实例
+    参考 com.example.consumer.service.TestBeanDefinitionRegistry 测试验证
+  
 
 ### BeanDefinitionRegistryPostProcessor和ImportBeanDefinitionRegistrar
 #### 两个接口都可以用于动态注册bean到容器中

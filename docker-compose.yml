@@ -8,7 +8,10 @@ services:
       - net-redis
     ports:
       - 6379:6379
-    command: redis-server --port 6379 --requirepass 123456  --appendonly yes --protected-mode no --bind 0.0.0.0
+    volumes:
+      - /home/redis:/etc/redis
+      - /data/redis:/data
+    command: redis-server --port 6379 --requirepass Ysj!@#qwe333&*66  --appendonly yes --protected-mode no --bind 0.0.0.0
 
   register-center:
     build:
@@ -20,6 +23,8 @@ services:
       - net-register-center
     ports:
       - 8088:8088
+    volumes:
+      - /data/logs:/data/logs
     cap_add:
       - ALL
 
@@ -34,6 +39,8 @@ services:
       - net-register-center
     ports:
       - 8081:8081
+    volumes:
+      - /data/logs:/data/logs
     depends_on:
       - register-center
     cap_add:
@@ -52,13 +59,18 @@ services:
     ports:
       - 8082:8082
     volumes:
-      - "/data/logs:/data/logs"
+      - /data/logs:/data/logs
     depends_on:
       - register-center
       - producer
       - redis
     cap_add:
       - ALL
+    # 启动环境变量, application.yml可以使用${environment_variable}方式获取参数
+    # 感觉相对于networks方式配置网络, 使用environment方式更加直接一点
+    environment:
+      - MYSQL_HOST=172.25.56.125
+      - REDIS_PASSWORD=Ysj!@#qwe333&*66
 
 networks:
   net-redis:

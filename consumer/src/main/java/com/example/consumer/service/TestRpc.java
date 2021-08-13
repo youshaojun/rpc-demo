@@ -2,6 +2,7 @@ package com.example.consumer.service;
 
 import com.example.api.CommonApi;
 import com.example.rpc.annotation.MyReference;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/test")
+@Slf4j
 public class TestRpc {
 
     @MyReference("apiImpl")
@@ -18,7 +20,7 @@ public class TestRpc {
 
     @RequestMapping("/get")
     public String get(String param) {
-		System.out.println("=============>>>consumer<<<==============");
+    	log.info("=============>>>consumer被调用, param: {}<<<==============", param);
         return commonApi.execute(param);
     }
 

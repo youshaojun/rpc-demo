@@ -13,7 +13,7 @@ spring:
     name: consumer
   # 默认自动注入的redis配置
   redis:
-    password: 123456
+    password: ${REDIS_PASSWORD}
     host: redis
 # 多redisTemplate实例配置, 根据名称注入
 # 默认配置 hostName: localhost; password: none; port: 6379; database: 0
@@ -21,16 +21,16 @@ multi-redis:
   redisConfigs:
     redisTemplate0:
       hostName: redis
-      password: 123456
+      password: ${REDIS_PASSWORD}
       port: 6379
       database: 0
     redisTemplate1:
       hostName: redis
-      password: 123456
+      password: ${REDIS_PASSWORD}
       port: 6379
       database: 1
     redisTemplate2:
       hostName: redis
-      password: 123456
+      password: ${REDIS_PASSWORD}
       port: 6379
       database: 2
