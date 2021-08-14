@@ -6,4 +6,4 @@ ARG VERSION=0.0.1
 ARG JAR_FILE=target/consumer-${VERSION}.jar
 COPY ${JAR_FILE} consumer.jar
 EXPOSE 8082
-ENTRYPOINT ["java", "-jar", "consumer.jar"]
+ENTRYPOINT ["java", "-Xms128m", "-Xmx128m", "-jar", "consumer.jar"]

@@ -6,4 +6,4 @@ ARG VERSION=0.0.1
 ARG JAR_FILE=target/producer-${VERSION}.jar
 COPY ${JAR_FILE} producer.jar
 EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "producer.jar"]
+ENTRYPOINT ["java", "-Xms128m", "-Xmx128m", "-jar", "producer.jar"]
