@@ -62,6 +62,30 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<spring.proflies.active>dev</spring.proflies.active>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<spring.proflies.active>test</spring.proflies.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<spring.proflies.active>prod</spring.proflies.active>
+			</properties>
+		</profile>
+	</profiles>
+
 
 	<build>
 		<plugins>
