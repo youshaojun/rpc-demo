@@ -2,8 +2,6 @@ FROM moxm/java:1.8-full
 MAINTAINER youshaojunde@163.com
 ENV TZ=Asia/Shanghai
 WORKDIR /home
-ARG VERSION=0.0.1
-ARG JAR_FILE=target/producer-${VERSION}.jar
-COPY ${JAR_FILE} producer.jar
+COPY target/producer-*.jar producer.jar
 EXPOSE 8081
 ENTRYPOINT ["java", "-Xms128m", "-Xmx128m", "-Djava.security.egd=file:/dev/./urandom", "-jar", "producer.jar"]
