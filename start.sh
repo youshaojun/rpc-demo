@@ -27,6 +27,7 @@ do
   exit 1;;
  esac
 done
+
 if [[ ${confirm} == N ]];
 then
     read -r -p "你确定将环境激活为[ ${SPRING_PROFILES_ACTIVE} ]吗? [Y/N] " input
