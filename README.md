@@ -3,13 +3,12 @@
 ##### 使用docker & docker-compose部署项目
 docker & docker-compose安装和使用请参考 
 [Docker version 20.10.8 & docker-compose version 1.8.1]
-https://www.docker.com/
-https://www.runoob.com/docker/docker-tutorial.html
+[Docker官网](https://www.docker.com)       [菜鸟](https://www.runoob.com/docker/docker-tutorial.html)
 
 #### 启动服务
 /// 1. 使用命令后台启动服务 docker-compose up -d  
 1. 使用脚本启动服务  ./start.sh -e dev  (脚本添加了环境激活支持, 使用 -e 环境 来激活对应环境)
-2. 访问consumer服务  http://ip:8082/test/get?param=xiaoming
+2. [访问consumer服务](http://localhost:8082/test/get?param=xiaoming)
 
 #### 使用说明
 register-center 注册中心

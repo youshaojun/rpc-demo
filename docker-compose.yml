@@ -66,8 +66,8 @@ services:
       - redis
     cap_add:
       - ALL
-    # 启动环境变量, application.yml可以使用${environment_variable}方式获取参数
-    # 感觉相对于networks方式配置网络, 使用environment方式更加直接一点
+    # 环境变量, application.yml可以使用${environment_variable}方式获取参数
+    # 感觉相对于networks方式配置网络, 使用environment方式更加简单
     environment:
       - MYSQL_HOST=172.25.56.125
       - REDIS_PASSWORD=Ysj!@#qwe333&*66
