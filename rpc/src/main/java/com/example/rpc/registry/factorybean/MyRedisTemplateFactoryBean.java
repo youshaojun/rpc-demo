@@ -8,7 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * @author yousj
- * @date 2021/8/7
+ * @since 2021/8/7
  */
 public class MyRedisTemplateFactoryBean implements FactoryBean {
 

@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * @author yousj
- * @date 2021/8/7
+ * @since 2021/8/7
  */
 @Data
 public class RedisConfig {

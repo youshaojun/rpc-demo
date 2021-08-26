@@ -15,7 +15,7 @@ import java.util.Set;
  * 扫描mapper, 注册BeanDefinition
  *
  * @author yousj
- * @date 2021/8/7
+ * @since 2021/8/7
  */
 public class MyMapperScannerRegistrar implements ImportBeanDefinitionRegistrar {
 

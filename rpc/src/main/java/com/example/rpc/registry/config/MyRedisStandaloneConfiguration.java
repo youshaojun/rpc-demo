@@ -6,7 +6,7 @@ import java.util.Optional;
 
 /**
  * @author yousj
- * @date 2021/8/7
+ * @since 2021/8/7
  */
 public class MyRedisStandaloneConfiguration extends RedisStandaloneConfiguration {
 

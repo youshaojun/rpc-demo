@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author yousj
- * @date 2021/8/7
+ * @since 2021/8/7
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Import(MyMapperScannerRegistrar.class)

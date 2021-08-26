@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * 测试
  *
  * @author yousj
- * @date 2021/8/7
+ * @since 2021/8/7
  */
 @Component
 public class TestBeanDefinitionRegistry {

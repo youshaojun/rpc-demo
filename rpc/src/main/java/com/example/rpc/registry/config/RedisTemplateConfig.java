@@ -10,8 +10,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 /**
  * @author yousj
  * @version 1.0.0
- * @date 2021/8/11 14:38
- * @description
+ * @since 2021/8/11 14:38
  */
 @Configuration
 public class RedisTemplateConfig {
