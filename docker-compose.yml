@@ -71,6 +71,8 @@ services:
     environment:
       - MYSQL_HOST=172.25.56.125
       - REDIS_PASSWORD=Ysj!@#qwe333&*66
+      - JAVA_OPTS=-server -Xms256m -Xmx256m -Xss512k -XX:+UseConcMarkSweepGC -XX:+UseParNewGC
+        -XX:+CMSParallelRemarkEnabled -XX:+UseCompressedOops -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/home/work/gc/heapdump.hprof
     # 配置文件方式配置环境变量, 更加方便管理
     env_file:
       - environment.env
