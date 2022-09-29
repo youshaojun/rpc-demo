@@ -1,5 +1,6 @@
 package com.example.registercenter.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,12 +16,12 @@ public class RegisterController {
 
     private static ConcurrentHashMap<String,String> urlMappingMap = new ConcurrentHashMap<>();
 
-    @RequestMapping("/set")
+    @GetMapping("/set")
     public void set(String k, String v) {
         urlMappingMap.put(k,v);
     }
 
-    @RequestMapping("/get")
+    @GetMapping("/get")
     public String get(String k) {
         return urlMappingMap.get(k);
     }

@@ -3,7 +3,6 @@ package com.example.rpc.registry;
 import com.example.rpc.registry.config.MyRedisStandaloneConfiguration;
 import com.example.rpc.registry.config.RedisConfig;
 import com.example.rpc.registry.factorybean.MyRedisTemplateFactoryBean;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -36,15 +35,15 @@ public class MyBeanDefinitionRegistryRedis implements BeanDefinitionRegistryPost
     }
 
     @Override
-    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
         BindResult<RedisConfig> bindResult = Binder.get(environment).bind("multi-redis", RedisConfig.class);
         bindResult.ifBound(redisTemplateConfig -> registerBeanDefinition(redisTemplateConfig, registry));
     }
 
-    @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
-
-    }
+	@Override
+	public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) {
+		// do something
+	}
 
     private void registerBeanDefinition(RedisConfig redisTemplateConfigs, BeanDefinitionRegistry registry) {
         Map<String, MyRedisStandaloneConfiguration> multiRedisTemplateConfigs = redisTemplateConfigs.getRedisConfigs();

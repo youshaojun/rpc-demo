@@ -28,7 +28,7 @@ public class ConsumerApplication {
 	private String currentAppConfig;
 
 	@PostConstruct
-	public void version(){
+	public void version() {
 		log.info("=============== 当前应用配置为[ " + currentAppConfig + " ] =================");
 	}
 
