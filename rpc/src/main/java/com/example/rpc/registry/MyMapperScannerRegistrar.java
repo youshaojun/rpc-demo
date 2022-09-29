@@ -2,8 +2,6 @@ package com.example.rpc.registry;
 
 import com.example.rpc.annotation.MapperScan;
 import com.example.rpc.registry.factorybean.MyMapperFactoryBean;
-import com.example.rpc.registry.mapper.BaseMapper;
-import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
@@ -22,63 +20,62 @@ import java.util.Set;
  * @since 2021/8/7
  */
 public class MyMapperScannerRegistrar implements ImportBeanDefinitionRegistrar {
-    @Override
-    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-        doScan(registry, importingClassMetadata);
-    }
-    /**
-     * 扫描获取需要整合的类
-     */
-    private void doScan(BeanDefinitionRegistry registry, AnnotationMetadata importingClassMetadata) {
-        AnnotationAttributes mapperScanAttrs = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(MapperScan.class.getName()));
-        if (mapperScanAttrs != null) {
-            ClassPathMapperScan scanner = new ClassPathMapperScan(registry);
-            scanner.doScan(mapperScanAttrs.getStringArray("value"));
-        }
-    }
 
-    /**
-     * ClassPathMapperScanner 直接从Mybatis中将关键代码复制过来
-     * 注意这里将源码中的许多代码删掉了
-     */
-    public class ClassPathMapperScan extends ClassPathBeanDefinitionScanner {
-        public ClassPathMapperScan(BeanDefinitionRegistry registry) {
-            super(registry, false);
-        }
+	@Override
+	public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+		doScan(registry, importingClassMetadata);
+	}
 
-        @Override
-        public Set<BeanDefinitionHolder> doScan(String... basePackages) {
-            addIncludeFilter((metadataReader, metadataReaderFactory) -> true);
-            Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
-            if (!beanDefinitions.isEmpty()) {
-                processBeanDefinitions(beanDefinitions);
-            }
-            return beanDefinitions;
-        }
+	/**
+	 * 扫描获取需要整合的类
+	 */
+	private void doScan(BeanDefinitionRegistry registry, AnnotationMetadata importingClassMetadata) {
+		AnnotationAttributes mapperScanAttrs = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(MapperScan.class.getName()));
+		if (mapperScanAttrs != null) {
+			ClassPathMapperScan scanner = new ClassPathMapperScan(registry);
+			scanner.doScan(mapperScanAttrs.getStringArray("value"));
+		}
+	}
 
-        private void processBeanDefinitions(Set<BeanDefinitionHolder> beanDefinitions) {
-            GenericBeanDefinition definition;
-            for (BeanDefinitionHolder holder : beanDefinitions) {
-                definition = (GenericBeanDefinition) holder.getBeanDefinition();
-                String beanClassName = definition.getBeanClassName();
-                definition.getConstructorArgumentValues().addGenericArgumentValue(beanClassName);
-                definition.setBeanClass(MyMapperFactoryBean.class);
-                definition.setAutowireMode(GenericBeanDefinition.AUTOWIRE_BY_TYPE);
-            }
-        }
+	/**
+	 * ClassPathMapperScanner 直接从Mybatis中将关键代码复制过来
+	 * 注意这里将源码中的许多代码删掉了
+	 */
+	public class ClassPathMapperScan extends ClassPathBeanDefinitionScanner {
 
-        @Override
-        protected boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
-            return beanDefinition.getMetadata().isInterface() && beanDefinition.getMetadata().isIndependent();
-        }
+		ClassPathMapperScan(BeanDefinitionRegistry registry) {
+			super(registry, false);
+		}
 
-        @Override
-        protected boolean checkCandidate(String beanName, BeanDefinition beanDefinition) {
-            if (super.checkCandidate(beanName, beanDefinition)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
+		@Override
+		public Set<BeanDefinitionHolder> doScan(String... basePackages) {
+			addIncludeFilter((metadataReader, metadataReaderFactory) -> true);
+			Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
+			if (!beanDefinitions.isEmpty()) {
+				processBeanDefinitions(beanDefinitions);
+			}
+			return beanDefinitions;
+		}
+
+		private void processBeanDefinitions(Set<BeanDefinitionHolder> beanDefinitions) {
+			GenericBeanDefinition definition;
+			for (BeanDefinitionHolder holder : beanDefinitions) {
+				definition = (GenericBeanDefinition) holder.getBeanDefinition();
+				String beanClassName = definition.getBeanClassName();
+				definition.getConstructorArgumentValues().addGenericArgumentValue(beanClassName);
+				definition.setBeanClass(MyMapperFactoryBean.class);
+				definition.setAutowireMode(GenericBeanDefinition.AUTOWIRE_BY_TYPE);
+			}
+		}
+
+		@Override
+		protected boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
+			return beanDefinition.getMetadata().isInterface() && beanDefinition.getMetadata().isIndependent();
+		}
+
+		@Override
+		protected boolean checkCandidate(String beanName, BeanDefinition beanDefinition) {
+			return super.checkCandidate(beanName, beanDefinition);
+		}
+	}
 }
