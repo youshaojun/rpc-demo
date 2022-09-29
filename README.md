@@ -11,11 +11,11 @@ docker & docker-compose安装和使用请参考
 2. [访问consumer服务](http://localhost:8082/test/get?param=xiaoming)
 
 #### 使用说明
-register-center 注册中心
-api 接口
-producer 生产者
-consumer 消费者
-rpc 远程调用实现
+- register-center 注册中心
+- api 接口
+- producer 生产者
+- consumer 消费者
+- rpc 远程调用实现
 
 #### 相关代码说明
 
@@ -32,6 +32,14 @@ rpc 远程调用实现
     注册的BeanDefinition的beanClass为FactoryBean类型
     属性填充的是调用FactoryBean的getObject()方法获取的实例
     参考 com.example.consumer.service.TestBeanDefinitionRegistry 测试验证
+    
+3.
+    com.example.rpc.registry.MyMapperScannerRegistrar
+    参考mybatis扫描mapper, 注册BeanDefinition
+
+4. 
+    com.example.rpc.registry.DefaultExceptionHandlerAdviceBeanDefinitionRegistrar
+    注册默认异常处理器(***实验特性***)
   
 
 ### BeanDefinitionRegistryPostProcessor和ImportBeanDefinitionRegistrar
