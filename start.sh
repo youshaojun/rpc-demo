@@ -18,7 +18,7 @@ do
   ;;
   v)
   echo "当前版本设置为==> " ${OPTARG}
-  sed -i 's#APP_VERSION=.*$#APP_VERSION='${OPTARG}'#g' environment.env
+  sed -i 's#APP_VERSION=.*$#APP_VERSION='${OPTARG}'#g' .env
   ;;
   y)
   confirm=Y
@@ -46,7 +46,7 @@ then
     esac
 fi
 
-sed -i 's#SPRING_PROFILES_ACTIVE=.*$#SPRING_PROFILES_ACTIVE='${SPRING_PROFILES_ACTIVE}'#g' environment.env
+sed -i 's#SPRING_PROFILES_ACTIVE=.*$#SPRING_PROFILES_ACTIVE='${SPRING_PROFILES_ACTIVE}'#g' .env
 docker-compose build
 docker-compose up -d
 
